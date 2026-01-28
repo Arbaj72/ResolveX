@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ResolveX | Track Complaint</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="main-container">
+  <div class="logo">ResolveX</div>
+  <div class="tagline">Track Your Complaint</div>
+
+  <h2>Track Complaint</h2>
+
+  <form onsubmit="trackComplaint(event)">
+
+    <div class="form-group">
+      <label>Complaint ID</label>
+      <input type="text" id="cid" placeholder="Enter Complaint ID" required>
+    </div>
+
+    <button class="btn">Track</button>
+
+  </form>
+
+  <div id="track-result" class="track-result"></div>
+
+  <div class="link">
+    <a href="dashboard.html">← Back to Dashboard</a>
+  </div>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>

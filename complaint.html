@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ResolveX | Register Complaint</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="main-container">
+  <div class="logo">ResolveX</div>
+  <div class="tagline">Register New Complaint</div>
+
+  <h2>Complaint Form</h2>
+
+  <form onsubmit="submitComplaint(event)">
+
+    <div class="form-group">
+      <label>Category</label>
+      <select id="category" required>
+        <option value="">Select</option>
+        <option>Electricity</option>
+        <option>Water</option>
+        <option>Road</option>
+        <option>Internet</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Subject</label>
+      <input type="text" id="subject" placeholder="Enter subject" required>
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="description" placeholder="Describe your issue" required></textarea>
+    </div>
+
+    <button class="btn">Submit Complaint</button>
+
+  </form>
+
+  <div class="link">
+    <a href="dashboard.html">← Back to Dashboard</a>
+  </div>
+</div>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
