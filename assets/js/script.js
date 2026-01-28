@@ -56,18 +56,27 @@ async function loadDashboard(){
   document.getElementById("resolved").innerText = data.resolved;
 }
 
-// ---------- SUBMIT COMPLAINT ----------
+// ---------- SUBMIT COMPLAINT (ONLY IMAGE PART ADDED) ----------
 async function submitComplaint(e){
   e.preventDefault();
 
   const category = document.getElementById("category").value;
   const subject = document.getElementById("subject").value;
   const description = document.getElementById("description").value;
+  const image = document.getElementById("image").files[0];
+
+  const fd = new FormData();
+  fd.append("category", category);
+  fd.append("subject", subject);
+  fd.append("description", description);
+
+  if(image){
+    fd.append("image", image);
+  }
 
   const res = await fetch(API + "/submit", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ category, subject, description })
+    body: fd
   });
 
   const data = await res.json();

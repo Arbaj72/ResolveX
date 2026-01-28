@@ -1,38 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
-import sqlite3, random, string
+import sqlite3, random, string, os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
 
+UPLOAD_FOLDER = "backend/uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 DB = "resolveX.db"
 
-# ---------- DATABASE SETUP ----------
 def get_db():
     return sqlite3.connect(DB)
-
-def init_db():
-    con = get_db()
-    cur = con.cursor()
-
-    cur.execute("""CREATE TABLE IF NOT EXISTS users(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        email TEXT UNIQUE,
-        password TEXT
-    )""")
-
-    cur.execute("""CREATE TABLE IF NOT EXISTS complaints(
-        id TEXT PRIMARY KEY,
-        category TEXT,
-        subject TEXT,
-        description TEXT,
-        status TEXT
-    )""")
-
-    con.commit()
-    con.close()
-
-init_db()
 
 # ---------- REGISTER ----------
 @app.route("/register", methods=["POST"])
@@ -69,13 +50,19 @@ def login():
         return jsonify({"success":True})
     return jsonify({"error":"Invalid credentials"}), 401
 
+# ---------- SUBMIT COMPLAINT (IMAGE ADDED ONLY) ----------
 @app.route("/submit", methods=["POST"])
 def submit():
-    data = request.get_json(force=True)
+    category = request.form.get("category")
+    subject = request.form.get("subject")
+    description = request.form.get("description")
 
-    category = data.get("category")
-    subject = data.get("subject")
-    description = data.get("description")
+    image = request.files.get("image")
+    filename = None
+
+    if image:
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     cid = "RX" + ''.join(random.choices(string.digits, k=6))
 
@@ -83,14 +70,14 @@ def submit():
     cur = con.cursor()
 
     cur.execute("""
-        INSERT INTO complaints (id, category, subject, description, status)
-        VALUES (?, ?, ?, ?, ?)
-    """, (cid, category, subject, description, "Pending"))
+        INSERT INTO complaints (id, category, subject, description, status, image)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, (cid, category, subject, description, "Pending", filename))
 
     con.commit()
     con.close()
 
-    return jsonify({"complaint_id": cid})
+    return jsonify({"complaint_id":cid})
 
 # ---------- DASHBOARD ----------
 @app.route("/dashboard-stats")
@@ -135,9 +122,15 @@ def track(cid):
             "category": row[1],
             "subject": row[2],
             "description": row[3],
-            "status": row[4]
+            "status": row[4],
+            "image": row[5]
         })
     return jsonify({"error":"Invalid ID"}),404
+
+# ---------- SERVE IMAGE ----------
+@app.route("/uploads/<filename>")
+def uploads(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -28,12 +28,18 @@
 
     <div class="form-group">
       <label>Subject</label>
-      <input type="text" id="subject" placeholder="Enter subject" required>
+      <input type="text" id="subject" required>
     </div>
 
     <div class="form-group">
       <label>Description</label>
-      <textarea id="description" placeholder="Describe your issue" required></textarea>
+      <textarea id="description" required></textarea>
+    </div>
+
+    <!-- ONLY NEW ADDITION -->
+    <div class="form-group">
+      <label>Upload Photo (optional)</label>
+      <input type="file" id="image" accept="image/*">
     </div>
 
     <button class="btn">Submit Complaint</button>
@@ -43,6 +49,7 @@
   <div class="link">
     <a href="dashboard.html">← Back to Dashboard</a>
   </div>
+
 </div>
 
 <script src="assets/js/script.js"></script>
