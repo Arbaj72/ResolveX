@@ -3,42 +3,69 @@
 <head>
   <title>ResolveX | Dashboard</title>
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="loadDashboard()">
 
-<div class="main-container">
-  <div class="logo">ResolveX</div>
-  <div class="tagline">User Dashboard</div>
+<body onload="loadDashboard(); initChart();">
 
-  <h2>Complaint Statistics</h2>
+<div class="navbar">
+  <div class="nav-logo">ResolveX</div>
+  <div class="nav-links">
+    <a href="dashboard.html">Home</a>
+    <a href="complaint.html">File Complaint</a>
+    <a href="track.html">Track Complaint</a>
+    <a href="login.html" class="logout">Logout</a>
+  </div>
+</div>
 
-  <div class="stats">
-    <div class="stat-card">
-      <h3 id="total">0</h3>
-      <p>Total</p>
-    </div>
-    <div class="stat-card">
-      <h3 id="pending">0</h3>
-      <p>Pending</p>
-    </div>
-    <div class="stat-card">
-      <h3 id="progress">0</h3>
-      <p>In Progress</p>
-    </div>
-    <div class="stat-card">
-      <h3 id="resolved">0</h3>
-      <p>Resolved</p>
-    </div>
+<div class="dashboard-page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Welcome to Your Dashboard</h1>
+    <p>Manage your complaints efficiently</p>
   </div>
 
-  <div style="margin-top:20px">
-    <a href="complaint.html">
-      <button class="btn">Register New Complaint</button>
-    </a>
-    <br><br>
-    <a href="track.html">
-      <button class="btn">Track Complaint</button>
-    </a>
+  <!-- MAIN -->
+  <div class="dashboard-container">
+
+    <!-- STATS -->
+    <div class="stats-wide">
+      <div class="stat blue">
+        <h3 id="total">0</h3>
+        <p>Total Complaints</p>
+      </div>
+      <div class="stat orange">
+        <h3 id="pending">0</h3>
+        <p>Pending</p>
+      </div>
+      <div class="stat green">
+        <h3 id="progress">0</h3>
+        <p>In Progress</p>
+      </div>
+      <div class="stat red">
+        <h3 id="resolved">0</h3>
+        <p>Resolved</p>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="action-buttons">
+      <a href="complaint.html" class="btn-action file">Register New Complaint</a>
+      <a href="track.html" class="btn-action track">Track Complaint</a>
+    </div>
+
+  </div>
+
+  <!-- ===== BAR CHART SECTION (SCROLL DOWN) ===== -->
+  <div class="chart-section">
+    <h2>Complaint Status Overview</h2>
+
+    <div class="chart-box">
+      <canvas id="statusChart"></canvas>
+    </div>
   </div>
 
 </div>

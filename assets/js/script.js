@@ -111,3 +111,106 @@ async function trackComplaint(e){
     box.innerHTML = "Invalid Complaint ID";
   }
 }
+// ---------- RECENT COMPLAINTS ----------
+async function loadRecentComplaints(){
+  try{
+    const res = await fetch(API + "/recent-complaints");
+    const data = await res.json();
+
+    const tbody = document.getElementById("recentComplaints");
+    tbody.innerHTML = "";
+
+    if(data.length === 0){
+      tbody.innerHTML = `<tr><td colspan="4" class="loading">No complaints found</td></tr>`;
+      return;
+    }
+
+    data.forEach(c => {
+      let cls = "status-pending";
+      if(c.status === "In Progress") cls = "status-progress";
+      if(c.status === "Resolved") cls = "status-resolved";
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${c.id}</td>
+          <td>${c.subject}</td>
+          <td class="${cls}">${c.status}</td>
+          <td>${c.date}</td>
+        </tr>
+      `;
+    });
+
+  }catch(e){
+    document.getElementById("recentComplaints").innerHTML =
+      `<tr><td colspan="4" class="loading">Unable to load data</td></tr>`;
+  }
+}
+/* ===== DASHBOARD BAR CHART ===== */
+
+let statusChart;
+
+function initChart(){
+  const ctx = document.getElementById("statusChart");
+
+  if(!ctx) return;
+
+ statusChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Total", "Pending", "In Progress", "Resolved"],
+    datasets: [{
+      data: [0, 0, 0, 0],
+      backgroundColor: "#2563eb",
+      borderRadius:6,
+      barThickness:30       // 🔥 bars patle
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#0f172a"
+      }
+    },
+    scales: {
+      x: {
+        grid: { display: false },
+        ticks: { color: "#e5e7eb" }
+      },
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: "rgba(255,255,255,0.15)"   // 🔥 soft grid
+        },
+        ticks: {
+          stepSize: 5,
+          color: "#e5e7eb"
+        }
+      }
+    }
+  }
+});
+}
+
+/* Update chart when dashboard stats load */
+async function loadDashboard(){
+  const res = await fetch(API + "/dashboard-stats");
+  const data = await res.json();
+
+  document.getElementById("total").innerText = data.total;
+  document.getElementById("pending").innerText = data.pending;
+  document.getElementById("progress").innerText = data.in_progress;
+  document.getElementById("resolved").innerText = data.resolved;
+
+  if(statusChart){
+    statusChart.data.datasets[0].data = [
+      data.total,
+      data.pending,
+      data.in_progress,
+      data.resolved
+    ];
+    statusChart.update();
+  }
+}

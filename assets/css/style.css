@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 *{
   margin:0;
@@ -7,51 +7,33 @@
   font-family:'Poppins',sans-serif;
 }
 
+/* ========== BACKGROUND (ALL PAGES) ========== */
 body{
   min-height:100vh;
   background:
     linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
     url("../img/bg.jpg") center/cover no-repeat fixed;
+}
+
+/* ========== AUTH PAGES (LOGIN / REGISTER / COMPLAINT / TRACK) ========== */
+.auth-page{
+  min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
 }
 
-
-
-/* Government Header */
-.gov-header{
-  position:fixed;
-  top:5px;
-  width:100%;
-  text-align:center;
-  color:#ffffff;
-  font-size:22px;
-  font-weight:600;
-  letter-spacing:1px;
-  z-index:1;
-}
-
-/* Main Glass Card */
 .main-container{
   width:100%;
   max-width:420px;
-  background: rgba(255,255,255,0.10);   /* transparency increase */
-  backdrop-filter: blur(12px);         /* blur thoda kam */
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(12px);
   border-radius:20px;
   padding:32px 30px;
   box-shadow:0 20px 45px rgba(0,0,0,0.25);
   color:white;
-  animation:fade 0.7s ease-in-out;
 }
 
-
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* Logo */
 .logo{
   text-align:center;
   font-size:32px;
@@ -72,7 +54,6 @@ h2{
   font-weight:600;
 }
 
-/* Form */
 .form-group{
   margin-bottom:15px;
 }
@@ -100,7 +81,6 @@ textarea{
   height:90px;
 }
 
-/* Button */
 .btn{
   width:100%;
   padding:12px;
@@ -111,15 +91,8 @@ textarea{
   font-weight:600;
   cursor:pointer;
   margin-top:12px;
-  transition:0.3s ease;
 }
 
-.btn:hover{
-  transform:scale(1.03);
-  box-shadow:0 8px 18px rgba(0,0,0,0.3);
-}
-
-/* Links */
 .link{
   text-align:center;
   margin-top:14px;
@@ -132,33 +105,128 @@ textarea{
   text-decoration:none;
 }
 
-/* Dashboard Stats */
-.stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-bottom:18px;
+/* ========== NAVBAR (DASHBOARD ONLY) ========== */
+.navbar{
+  height:60px;
+  background:#0f172a;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 30px;
 }
 
-.stat-card{
-  background:rgba(255,255,255,0.2);
-  padding:18px;
-  border-radius:14px;
-  text-align:center;
-}
-
-.stat-card h3{
-  font-size:30px;
-  margin-bottom:5px;
+.nav-logo{
+  color:white;
+  font-size:22px;
   font-weight:700;
 }
 
-/* Track Result */
-.track-result{
-  background:rgba(255,255,255,0.2);
-  margin-top:16px;
-  padding:15px;
-  border-radius:12px;
-  text-align:center;
-  font-size:14px;
+.nav-links a{
+  color:#e5e7eb;
+  margin-left:22px;
+  text-decoration:none;
+  font-weight:500;
 }
+
+.nav-links .logout{
+  background:#e5e7eb;
+  color:#0f172a;
+  padding:6px 14px;
+  border-radius:20px;
+}
+
+/* ========== DASHBOARD ONLY ========== */
+.dashboard-page .hero{
+  text-align:center;
+  padding:40px 20px 20px;
+  color:white;
+}
+
+.dashboard-page .hero h1{
+  font-size:32px;
+}
+
+.dashboard-page .hero p{
+  color:#e5e7eb;
+}
+
+.dashboard-page .dashboard-container{
+  max-width:1100px;
+  margin:30px auto 60px;
+  padding:0 20px;
+}
+
+.dashboard-page .stats-wide{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+  margin-bottom:35px;
+}
+
+.dashboard-page .stat{
+  padding:24px;
+  border-radius:14px;
+  color:white;
+}
+
+.dashboard-page .stat h3{
+  font-size:34px;
+}
+
+.blue{background:#2563eb;}
+.orange{background:#d97706;}
+.green{background:#15803d;}
+.red{background:#b91c1c;}
+
+.dashboard-page .action-buttons{
+  display:flex;
+  gap:22px;
+}
+
+.dashboard-page .btn-action{
+  height:56px;
+  padding:0 30px;
+  border-radius:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16px;
+  font-weight:600;
+  text-decoration:none;
+  box-shadow:0 6px 14px rgba(0,0,0,0.18);
+}
+
+.dashboard-page .btn-action.file{
+  background:#166534;
+  color:white;
+}
+
+.dashboard-page .btn-action.track{
+  background:#ffffff;
+  color:#0f172a;
+}
+/* ========== DASHBOARD BAR CHART ========== */
+
+.chart-section{
+  max-width:1100px;
+  margin:80px auto 100px;
+  padding:0 20px;
+  color:white;
+}
+
+.chart-section h2{
+  text-align:center;
+  margin-bottom:20px;
+  font-weight:600;
+}
+
+.chart-box{
+  background:rgba(255,255,255,0.10);
+  backdrop-filter:blur(8px);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.18);
+  max-width:700px;          /* 🔥 chart ko chhota kiya */
+  margin:0 auto;            /* center me rakha */
+}
+

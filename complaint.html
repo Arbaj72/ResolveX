@@ -4,7 +4,7 @@
   <title>ResolveX | Register Complaint</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="auth-page">
 
 <div class="main-container">
   <div class="logo">ResolveX</div>
@@ -13,7 +13,6 @@
   <h2>Complaint Form</h2>
 
   <form onsubmit="submitComplaint(event)">
-
     <div class="form-group">
       <label>Category</label>
       <select id="category" required>
@@ -36,20 +35,17 @@
       <textarea id="description" required></textarea>
     </div>
 
-    <!-- ONLY NEW ADDITION -->
     <div class="form-group">
       <label>Upload Photo (optional)</label>
-      <input type="file" id="image" accept="image/*">
+      <input type="file" id="image">
     </div>
 
     <button class="btn">Submit Complaint</button>
-
   </form>
 
   <div class="link">
     <a href="dashboard.html">← Back to Dashboard</a>
   </div>
-
 </div>
 
 <script src="assets/js/script.js"></script>
