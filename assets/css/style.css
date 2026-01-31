@@ -229,4 +229,41 @@ textarea{
   max-width:700px;          /* 🔥 chart ko chhota kiya */
   margin:0 auto;            /* center me rakha */
 }
+/* ===== NAVBAR HOVER EFFECT ===== */
+.nav-links a{
+  transition: all 0.25s ease;
+}
 
+.nav-links a:hover{
+  transform: translateY(-3px);
+  color: #ffffff;
+}
+/* ===== STAT CARD HOVER ===== */
+.dashboard-page .stat{
+  transition: all 0.25s ease;
+}
+
+.dashboard-page .stat:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.35);
+}
+/* ===== NAVBAR LINKS HOVER FIX ===== */
+.nav-links a{
+  display:inline-block;          /* 🔥 IMPORTANT */
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.nav-links a:hover{
+  transform: translateY(-3px);
+  color:#ffffff;
+}
+/* ===== ACTION BUTTON FINAL HOVER FIX ===== */
+.dashboard-page .btn-action{
+  display:inline-flex;              /* 🔥 MOST IMPORTANT LINE */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dashboard-page .btn-action:hover{
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+}
